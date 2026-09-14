@@ -1,0 +1,12 @@
+streamlit>=1.42.0
+Authlib>=1.3.2
+pdfplumber
+python-docx
+dateparser
+pandas
+openpyxl
+pdf2image
+pytesseract
+Pillow
+google-cloud-vision
+openai
