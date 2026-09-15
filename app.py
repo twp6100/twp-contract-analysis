@@ -5,7 +5,17 @@ import streamlit as st
 #  When deployed to Streamlit Community Cloud with an [auth] section
 #  in secrets.toml, this requires the user to log in with Google.
 #  When run locally without an [auth] section, the gate is skipped.
-# ======================================================================
+# ---- TEMPORARY DIAGNOSTIC ----
+try:
+    _has_deepseek = bool(st.secrets.get("deepseek_api_key", ""))
+    _has_auth = "auth" in st.secrets
+    _has_gv = "google_vision" in st.secrets
+    st.info(f"🔧 Diagnostics — deepseek key present: {_has_deepseek} | auth section: {_has_auth} | google_vision section: {_has_gv}")
+except Exception as _diag_err:
+    st.error(f"🔧 Diagnostics — error reading secrets: {type(_diag_err).__name__}: {_diag_err}")
+# ---- END DIAGNOSTIC ----
+
+
 def _auth_is_configured():
     try:
         return "auth" in st.secrets and st.secrets["auth"].get("client_id")
