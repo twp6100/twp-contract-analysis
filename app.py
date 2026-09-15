@@ -195,7 +195,16 @@ def google_vision_ocr(pdf_path):
         from pdf2image import convert_from_path
         import io as _io
 
-        os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = GOOGLE_VISION_KEY_PATH
+                # On Streamlit Cloud, the credentials come from secrets instead of a file.
+        creds_path = GOOGLE_VISION_KEY_PATH
+        try:
+            if "google_vision" in st.secrets and st.secrets["google_vision"].get("credentials_json"):
+                import tempfile
+                creds_path = str(Path(tempfile.gettempdir()) / "google_vision_key.json")
+                Path(creds_path).write_text(st.secrets["google_vision"]["credentials_json"])
+        except Exception:
+            pass
+        os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = creds_path
         client = vision.ImageAnnotatorClient()
 
         images = convert_from_path(
