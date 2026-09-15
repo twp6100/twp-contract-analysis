@@ -66,7 +66,7 @@ DEEPSEEK_API_KEY = st.secrets.get("deepseek_api_key", "")
 GOOGLE_VISION_KEY_PATH = r"C:\TWP_Build\contract_date_tool\google_credentials\google_vision_key.json"
 
 # Path to Poppler (needed only for OCR of scanned PDFs)
-POPPLER_PATH = r"C:\poppler\Library\bin"
+POPPLER_PATH = None if os.name != "nt" else r"C:\poppler\Library\bin"
 
 
 # ======================================================================
