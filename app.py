@@ -70,7 +70,7 @@ from docx.oxml import OxmlElement
 # ======================================================================
 
 # Your DeepSeek API key (starts with "sk-")
-DEEPSEEK_API_KEY = st.secrets.get("deepseek_api_key", "")
+DEEPSEEK_API_KEY = "sk-aa0e7f2402eb495e95c6a6e2554df39b"
 
 # Path to your Google Cloud Vision service account JSON key file
 GOOGLE_VISION_KEY_PATH = r"C:\TWP_Build\contract_date_tool\google_credentials\google_vision_key.json"
