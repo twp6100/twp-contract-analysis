@@ -305,7 +305,7 @@ SUMMARY_SYSTEM_PROMPT = (
 
 def deepseek_summarize(text, timeout=30):
     """Call DeepSeek to summarize the document."""
-        api_key = _get_deepseek_key()
+    api_key = _get_deepseek_key()
     if not api_key or api_key.startswith("sk-PASTE"):
         return None, "API key not configured"
 
