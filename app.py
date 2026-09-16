@@ -69,8 +69,13 @@ from docx.oxml import OxmlElement
 #  CONFIGURATION  —  edit these two values before using the app
 # ======================================================================
 
-# Your DeepSeek API key (starts with "sk-")
-DEEPSEEK_API_KEY = "sk-aa0e7f2402eb495e95c6a6e2554df39b"
+# DeepSeek API key is loaded from Streamlit secrets
+def _get_deepseek_key() -> str:
+    """Read the DeepSeek API key from Streamlit secrets at call time."""
+    try:
+        return st.secrets.get("deepseek_api_key", "") or ""
+    except Exception:
+        return ""
 
 # Path to your Google Cloud Vision service account JSON key file
 GOOGLE_VISION_KEY_PATH = r"C:\TWP_Build\contract_date_tool\google_credentials\google_vision_key.json"
@@ -300,7 +305,8 @@ SUMMARY_SYSTEM_PROMPT = (
 
 def deepseek_summarize(text, timeout=30):
     """Call DeepSeek to summarize the document."""
-    if not DEEPSEEK_API_KEY or DEEPSEEK_API_KEY.startswith("sk-PASTE"):
+        api_key = _get_deepseek_key()
+    if not api_key or api_key.startswith("sk-PASTE"):
         return None, "API key not configured"
 
     try:
@@ -312,7 +318,7 @@ def deepseek_summarize(text, timeout=30):
 
     try:
         client = OpenAI(
-            api_key=DEEPSEEK_API_KEY,
+            api_key=api_key,
             base_url="https://api.deepseek.com",
             timeout=timeout,
         )
